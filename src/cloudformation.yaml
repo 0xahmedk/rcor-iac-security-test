@@ -1,8 +1,11 @@
+```yaml
 Resources:
   UnencryptedBucket:
     Type: "AWS::S3::Bucket"
     Properties:
       BucketName: "test-unencrypted-bucket"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
 
   OpenSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
@@ -11,3 +14,4 @@ Resources:
       SecurityGroupIngress:
         - IpProtocol: "-1"
           CidrIp: "0.0.0.0/0"
+```
