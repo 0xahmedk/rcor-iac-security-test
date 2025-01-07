@@ -1,8 +1,19 @@
+```yaml
 Resources:
   UnencryptedBucket:
     Type: "AWS::S3::Bucket"
     Properties:
       BucketName: "test-unencrypted-bucket"
+      BucketPolicy:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: "Deny"
+          Principal: "*"
+          Action: "s3:GetObject"
+          Resource: "arn:aws:s3:::test-unencrypted-bucket/*"
+          Condition:
+            Bool:
+              aws:SecureTransport: "no"
 
   OpenSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
@@ -11,3 +22,4 @@ Resources:
       SecurityGroupIngress:
         - IpProtocol: "-1"
           CidrIp: "0.0.0.0/0"
+```
