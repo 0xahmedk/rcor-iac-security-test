@@ -1,8 +1,29 @@
+```yaml
 Resources:
   UnencryptedBucket:
     Type: "AWS::S3::Bucket"
     Properties:
       BucketName: "test-unencrypted-bucket"
+      BucketPolicy:
+        Statement:
+        - Effect: "Allow"
+          Action: "s3:GetBucketAcls"
+          Resource: !Sub "arn:aws:s3:::${BucketName}"
+          Principal: "*"
+        - Effect: "Deny"
+          Action: "s3:PutBucketAcl"
+          Resource: !Sub "arn:aws:s3:::${BucketName}"
+          Principal: "*"
+          Condition:
+            Bool:
+              "aws:SecureTransport": "false"
+        - Effect: "Deny"
+          Action: "s3:PutBucketAcl"
+          Resource: !Sub "arn:aws:s3:::${BucketName}"
+          Principal: "*"
+          Condition:
+            Bool:
+              "aws:RequesterIsPublic": "true"
 
   OpenSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
@@ -11,3 +32,4 @@ Resources:
       SecurityGroupIngress:
         - IpProtocol: "-1"
           CidrIp: "0.0.0.0/0"
+```
