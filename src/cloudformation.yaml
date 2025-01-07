@@ -1,3 +1,4 @@
+```yaml
 Resources:
   UnencryptedBucket:
     Type: "AWS::S3::Bucket"
@@ -11,3 +12,6 @@ Resources:
       SecurityGroupIngress:
         - IpProtocol: "-1"
           CidrIp: "0.0.0.0/0"
+          Description: "Allow all inbound traffic from any source"
+
+```
