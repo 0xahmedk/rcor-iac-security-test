@@ -1,8 +1,12 @@
+```yaml
 Resources:
   UnencryptedBucket:
     Type: "AWS::S3::Bucket"
     Properties:
       BucketName: "test-unencrypted-bucket"
+      LoggingConfiguration:
+        DestinationBucketName: "test-logging-bucket"
+        LogFilePrefix: "logs/"
 
   OpenSecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
@@ -11,3 +15,4 @@ Resources:
       SecurityGroupIngress:
         - IpProtocol: "-1"
           CidrIp: "0.0.0.0/0"
+```
